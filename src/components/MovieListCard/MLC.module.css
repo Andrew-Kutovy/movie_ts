@@ -1,0 +1,6 @@
+.card{
+    flex-basis: 23%; /* Устанавливаем ширину каждого элемента в 23% от родительского контейнера */
+    padding: 5px;
+    text-decoration: none;
+    color: inherit;
+}
