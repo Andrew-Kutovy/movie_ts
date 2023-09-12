@@ -10,11 +10,12 @@ interface IProps {
 
 const MoviesList: FC<IProps> = () => {
     const [movies, setMovies] = useState<IMovie[]>([]);
+    const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        const fetchMovies = async () => {
+        const fetchMovies = async (page:number) => {
             try {
-                const response = await listService.getAll();
+                const response = await listService.getAll(page);
                 const { data } = response as { data: IMovieListResponse };
                 setMovies((prevList) => [...prevList, ...data.results]);
             } catch (error) {
@@ -22,8 +23,8 @@ const MoviesList: FC<IProps> = () => {
             }
         };
 
-        fetchMovies();
-    }, []);
+        fetchMovies(currentPage);
+    }, [currentPage]);
 
     return (
         <div className={style.list}>

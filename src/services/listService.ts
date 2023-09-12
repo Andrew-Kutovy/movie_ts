@@ -3,5 +3,5 @@ import {urls} from "../constants/urls";
 import {IMovieListResponse} from "../interfaces/moviesInterface";
 
 export const listService = {
-    getAll:():IRes<IMovieListResponse> => apiService.get(urls.list)
+    getAll:(page:number):IRes<IMovieListResponse> => apiService.get(urls.list+`?page=${page}`)
 }

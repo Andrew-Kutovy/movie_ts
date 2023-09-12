@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    padding: 20px;
+}
+.poster{
+    margin-right: 20px;
+}
+.genres{
+    background-color: #363649;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+    color: #e5dee1;
+    text-decoration: none;
+}
