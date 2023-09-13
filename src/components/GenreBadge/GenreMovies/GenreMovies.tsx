@@ -33,12 +33,11 @@ const GenreMovies: React.FC = () => {
         fetchMovies();
     }, [genreId]);
 
-    console.log(movies);
 
     return (
         <div>
             <div>
-                <h1>{genreName}</h1>
+                <h1>Genre: {genreName}</h1>
                 {movies.map((movie) => (
                     <div key={movie.id}>
                         <Link to={`/details/${movie.id}`}>{movie.title}</Link>

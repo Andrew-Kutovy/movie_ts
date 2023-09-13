@@ -5,6 +5,7 @@ import GenresPage from "./pages/GenresPage/GenresPage";
 import DetailsPage from "./pages/DetailsPage/DetailsPage";
 import UserPage from "./pages/UserPage/UserPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
+import GenreMovies from "./components/GenreBadge/GenreMovies/GenreMovies";
 
 const router = createBrowserRouter([
     {
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'genres/:genreId',
-                element: ''
+                element: <GenreMovies />
             }
         ]
     },
