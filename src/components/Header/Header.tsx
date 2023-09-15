@@ -1,17 +1,33 @@
 import React from 'react';
-import styles from './Header.module.css'
-import {NavLink, useLocation} from "react-router-dom";
+import { NavLink, useLocation } from 'react-router-dom';
 
-const Header = () => {
-    const location = useLocation()
+import css from './Header.module.css';
+
+interface HeaderProps {
+    onToggleTheme: () => void;
+    darkThemeEnabled: boolean;
+}
+
+const Header: React.FC<HeaderProps> = ({ onToggleTheme, darkThemeEnabled }) => {
+    const location = useLocation();
+
     const isDetailsPage = () => location.pathname.includes('/details');
 
     return (
-        <div className={styles.Header}>
-            <div className={styles.navigation}>
+        <div className={css.Header}>
+            <div className={css.navigation}>
                 <NavLink to="/">Main</NavLink>
                 <NavLink to="/genres">Genres</NavLink>
                 {isDetailsPage() && <NavLink to="/details">Details</NavLink>}
+            </div>
+            <div className={css.setting}>
+                <NavLink to="/user">
+                    <span className={css.userInfo}>АК</span>
+                </NavLink>
+                <label className={css.themeToggle}>
+                    <input type="checkbox" onChange={onToggleTheme} checked={darkThemeEnabled} />
+                    <span className={css.slider}></span>
+                </label>
             </div>
         </div>
     );

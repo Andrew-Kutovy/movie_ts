@@ -1,4 +1,4 @@
-import {apiService, IRes} from "./apiService";
+import apiService, {IRes} from "./apiService";
 import {urls} from "../constants/urls";
 import {IExtendedMovie} from "../interfaces/moviesInterface";
 

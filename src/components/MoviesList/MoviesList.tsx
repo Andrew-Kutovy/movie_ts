@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { listService } from "../../services/listService";
+import listService  from "../../services/listService";
 import {IMovie, IMovieListResponse} from "../../interfaces/moviesInterface";
 import style from './MovieList.module.css'
 import MovieListCard from "../MovieListCard/MovieListCard";

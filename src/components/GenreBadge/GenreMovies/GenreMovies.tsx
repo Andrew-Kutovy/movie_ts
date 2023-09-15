@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
-import { apiService } from '../../../services/apiService';
+import  apiService  from '../../../services/apiService';
 import { urls } from '../../../constants/urls';
 
 interface Movie {
