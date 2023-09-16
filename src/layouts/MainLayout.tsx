@@ -4,7 +4,6 @@ import Header from "../components/Header/Header";
 
 const MainLayout: React.FC = () => {
     const [isDarkTheme, setIsDarkTheme] = useState(false);
-    const [selectedGenre, setSelectedGenre] = useState('');
 
     const toggleTheme = () => setIsDarkTheme((prevTheme) => !prevTheme);
 

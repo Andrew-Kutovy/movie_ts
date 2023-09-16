@@ -1,14 +1,21 @@
-import React, {useEffect, useState} from 'react';
-import {IGenre, IGenreList} from "../../interfaces/genreInterface";
+import React, {useEffect} from 'react';
+
 import {genreService} from "../../services/genreService";
 import {Link} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../../hooks/reduxHooks";
+import {setGenres} from "../../redux/slices/genresSlice";
 
 const GenreBadge = () => {
-    const [genres, setGenres] = useState<IGenre[]>([])
+    const dispatch = useAppDispatch()
+    const genres = useAppSelector(state => state.genres.genres)
 
     useEffect(() => {
-        genreService.getAll().then(({data}) => setGenres(data.genres as IGenre[]))
-    }, []);
+        genreService.getAll()
+            .then((response) => {
+                dispatch(setGenres(response.data.genres))
+            })
+    }, [dispatch]);
+
 
     return (
         <div>

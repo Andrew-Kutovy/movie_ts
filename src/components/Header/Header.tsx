@@ -1,14 +1,18 @@
-import React from 'react';
+import React, {FC, PropsWithChildren} from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 
 import css from './Header.module.css';
 
-interface HeaderProps {
+interface IProps extends PropsWithChildren {
     onToggleTheme: () => void;
     darkThemeEnabled: boolean;
 }
+// interface HeaderProps {
+//     onToggleTheme: () => void;
+//     darkThemeEnabled: boolean;
+// }
 
-const Header: React.FC<HeaderProps> = ({ onToggleTheme, darkThemeEnabled }) => {
+const Header: FC<IProps> = ({ onToggleTheme, darkThemeEnabled }) => {
     const location = useLocation();
 
     const isDetailsPage = () => location.pathname.includes('/details');

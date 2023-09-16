@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 interface IProps extends PropsWithChildren {
     film: IMovie
 }
+
 const MovieListCard: FC<IProps> = ({film}) => {
     return (
         <Link to={`/details/${film.id}`} className={style.card}>

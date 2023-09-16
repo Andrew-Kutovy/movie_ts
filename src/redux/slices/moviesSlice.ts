@@ -2,16 +2,18 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import listService from "../../services/listService";
 import apiService from "../../services/apiService";
 import {urls} from "../../constants/urls";
+import {IExtendedMovie, IMovie} from "../../interfaces/moviesInterface";
+import {AxiosError} from "axios";
 
-interface MoviesState {
-    movies: any[];
-    moviesByGenre: any[];
-    movieDetails: any | null;
+interface IState {
+    movies: IMovie[];
+    moviesByGenre: IMovie[];
+    movieDetails: IExtendedMovie;
     error: string | null;
     loading: boolean;
 }
 
-const initialState: MoviesState = {
+const initialState: IState = {
     movies: [],
     moviesByGenre: [],
     movieDetails: null,
@@ -21,19 +23,20 @@ const initialState: MoviesState = {
 
 export const all = createAsyncThunk(
     'moviesSlice/all',
-    async (page: number, thunkAPI) => {
+    async (page: number, {rejectWithValue}) => {
         try {
             const { data } = await listService.getAll(page);
             return data;
-        } catch (e: any) {
-            return thunkAPI.rejectWithValue(e.response.data);
+        } catch (e) {
+            const err = e as AxiosError
+            return rejectWithValue(err.response.data);
         }
     }
 );
 
 export const genre = createAsyncThunk(
     'moviesSlice/genre',
-    async (genreId: number, thunkAPI) => {
+    async (genreId: number, {rejectWithValue}) => {
         try {
             const response = await apiService.get(urls.list, {
                 params: {
@@ -41,8 +44,9 @@ export const genre = createAsyncThunk(
                 },
             });
             return response.data.results;
-        } catch (error: any) {
-            return thunkAPI.rejectWithValue(error.response.data);
+        } catch (e) {
+            const err = e as AxiosError
+            return rejectWithValue(err.response.data);
         }
     }
 );
@@ -99,6 +103,7 @@ const { reducer: movieReducer, actions } = moviesSlice;
 const { setMovieDetails } = actions;
 
 const movieAction = {
+    ...actions,
     all,
     genre,
     setMovieDetails
