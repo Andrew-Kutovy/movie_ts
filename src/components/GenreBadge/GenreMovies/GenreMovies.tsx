@@ -1,21 +1,22 @@
+
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
-import  apiService  from '../../../services/apiService';
+import apiService from '../../../services/apiService';
 import { urls } from '../../../constants/urls';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../redux/store';
+import { movieAction } from '../../../redux/slices/moviesSlice';
+import Pagination from '@mui/material/Pagination';
 
-interface Movie {
-    id: number;
-    title: string;
-    overview: string;
-    poster_path: string;
-}
-
-const GenreMovies: React.FC = () => {
+const GenreMovies = () => {
     const { genreId } = useParams<{ genreId: string }>();
-    const [movies, setMovies] = useState<Movie[]>([]);
+    const dispatch = useDispatch();
+    const movies = useSelector((state: RootState) => state.movies.movies);
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const genreName = searchParams.get('name') || '';
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 20;
 
     useEffect(() => {
         const fetchMovies = async () => {
@@ -23,16 +24,21 @@ const GenreMovies: React.FC = () => {
                 const response = await apiService.get(urls.list, {
                     params: {
                         with_genres: genreId,
+                        page: currentPage,
+                        per_page: itemsPerPage,
                     },
                 });
-                setMovies(response.data.results);
+                dispatch(movieAction.setMovies(response.data.results));
             } catch (error) {
                 console.error('Failed to fetch movies', error);
             }
         };
         fetchMovies();
-    }, [genreId]);
+    }, [dispatch, genreId, currentPage]);
 
+    const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+        setCurrentPage(page);
+    };
 
     return (
         <div>
@@ -45,6 +51,11 @@ const GenreMovies: React.FC = () => {
                         <img src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt="poster" />
                     </div>
                 ))}
+                <Pagination
+                    count={10} // Задайте общее количество страниц
+                    page={currentPage}
+                    onChange={handlePageChange}
+                />
             </div>
         </div>
     );

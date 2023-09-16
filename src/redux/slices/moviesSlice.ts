@@ -71,7 +71,7 @@ const moviesSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(all.fulfilled, (state, action) => {
-                state.movies = [...state.movies, ...action.payload.results];
+                state.movies = action.payload.results;
                 state.loading = false;
                 state.error = null;
             })
