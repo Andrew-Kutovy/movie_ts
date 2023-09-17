@@ -1,18 +1,19 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
+import Pagination from '@mui/material/Pagination';
+
 import apiService from '../../../services/apiService';
 import { urls } from '../../../constants/urls';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import { movieAction } from '../../../redux/slices/moviesSlice';
-import Pagination from '@mui/material/Pagination';
+import style from './GenreMovies.module.css'
 
 const GenreMovies = () => {
     const { genreId } = useParams<{ genreId: string }>();
     const dispatch = useDispatch();
-    const movies = useSelector((state: RootState) => state.movies.movies);
     const location = useLocation();
+    const movies = useSelector((state: RootState) => state.movies.movies);
     const searchParams = new URLSearchParams(location.search);
     const genreName = searchParams.get('name') || '';
     const [currentPage, setCurrentPage] = useState(1);
@@ -36,9 +37,7 @@ const GenreMovies = () => {
         fetchMovies();
     }, [dispatch, genreId, currentPage]);
 
-    const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-        setCurrentPage(page);
-    };
+    const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page);
 
     return (
         <div>
@@ -51,11 +50,10 @@ const GenreMovies = () => {
                         <img src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt="poster" />
                     </div>
                 ))}
-                <Pagination
-                    count={10} // Задайте общее количество страниц
-                    page={currentPage}
-                    onChange={handlePageChange}
-                />
+                <div>
+                    <Pagination className={style.pagination} count={200} page={currentPage} onChange={handlePageChange}/>
+                </div>
+
             </div>
         </div>
     );

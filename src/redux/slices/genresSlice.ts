@@ -1,5 +1,4 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {IExtendedMovie, IMovie} from "../../interfaces/moviesInterface";
 import {IGenre} from "../../interfaces/genreInterface";
 
 interface IState {
@@ -32,9 +31,6 @@ const genresSlice = createSlice({
 
 const {reducer: genreReducer, actions} = genresSlice
 
-// const genreActions = {
-//     ...actions
-// }
 export const { setGenres, setLoading, setError } = actions;
 
 export {genreReducer}

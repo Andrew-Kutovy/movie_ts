@@ -5,3 +5,25 @@
     padding: 5px;
     margin: 5px;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+    color: #882750;
+}
+
+.pagination .page-link {
+    color: #d70e0e;
+    background-color: #007bff;
+    border: 1px solid #007bff;
+    padding: 10px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.pagination .page-link:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}

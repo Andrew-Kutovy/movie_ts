@@ -16,19 +16,14 @@ const MoviesList = () => {
         dispatch(movieAction.all(currentPage));
     }, [currentPage]);
 
-    const handlePageChange = (page: number) => {
-        setCurrentPage(page);
-    };
+    const handlePageChange = (page: number) => setCurrentPage(page);
 
     return (
         <div className={style.list}>
-            {movies.map((film, id) => (
-                <MovieListCard key={id} film={film} />
-            ))}
-            <PaginationComponent
-                count={500}
-                onPageChange={handlePageChange}
-            />
+            {movies.map((film, id) => (<MovieListCard key={id} film={film} />))}
+            <div className={style.pagination}>
+                <PaginationComponent count={500} onPageChange={handlePageChange}/>
+            </div>
         </div>
     );
 };
