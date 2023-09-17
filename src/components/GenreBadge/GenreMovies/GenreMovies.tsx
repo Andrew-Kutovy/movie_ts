@@ -15,7 +15,7 @@ const GenreMovies = () => {
     const location = useLocation();
     const movies = useSelector((state: RootState) => state.movies.movies);
     const searchParams = new URLSearchParams(location.search);
-    const genreName = searchParams.get('name') || '';
+    const genreName = searchParams.get('name') || null;
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 20;
 
@@ -42,7 +42,10 @@ const GenreMovies = () => {
     return (
         <div>
             <div>
-                <h1>Genre: {genreName}</h1>
+                <h1>
+                    {genreName ? `Genre: ${genreName}` : ''}
+                    </h1>
+                {/*<h1>Genre: {genreName}</h1>*/}
                 {movies.map((movie) => (
                     <div key={movie.id}>
                         <Link to={`/details/${movie.id}`}>{movie.title}</Link>
